@@ -2,7 +2,7 @@
   "name": "azure-blob-integration-nestjs",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Wanuja Ranasinghe",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@azure/storage-blob": "^12.9.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
