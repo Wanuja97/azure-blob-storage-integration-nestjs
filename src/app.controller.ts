@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-
+import { Controller,Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { AzureBlobService } from './azure-blob/azure-blob.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  containerName = "upload-images";
+  constructor(
+    private readonly azureBlobService: AzureBlobService,
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('myfile'))
+  async upload(@UploadedFile() file: Express.Multer.File): Promise<string> {
+    await this.azureBlobService.upload(file,this.containerName);
+    return 'uploaded';
   }
 }
