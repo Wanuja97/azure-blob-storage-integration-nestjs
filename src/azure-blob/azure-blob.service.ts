@@ -27,7 +27,12 @@ export class AzureBlobService {
         const blobDownloaded = await blobClient.download();
         return blobDownloaded.readableStreamBody;
       }
+    //   delete file
+        async deletefile(filename: string,containerName:string){
+            this.containerName= containerName;
+            const blobClient = this.getBlobClient(filename);
+            await blobClient.deleteIfExists();
+        }
     
-       
 }
 
