@@ -7,7 +7,7 @@ export class AppController {
   constructor(
     private readonly azureBlobService: AzureBlobService,
   ) {}
-
+// upload file
   @Post('upload')
   @UseInterceptors(FileInterceptor('myfile'))
   async upload(@UploadedFile() file: Express.Multer.File): Promise<string> {
@@ -15,6 +15,7 @@ export class AppController {
     return 'file uploaded';
   }
 
+// read file
   @Get('read-image')
   @Header('Content-Type','image/jpeg')
   async readImage(@Res() res,@Query('filename') filename){
@@ -22,12 +23,13 @@ export class AppController {
     return file.pipe(res);
   }
 
+// delete file
   @Delete('/:filename')
   async delete(@Param('filename') filename){
    await this.azureBlobService.deletefile(filename,this.containerName);
    return "deleted";
   }
-  
+// download file
   @Get('download-image')
   @Header('Content-Type','image/jpeg')
   @Header('Content-Disposition', 'attachment; filename=download.jpeg')
