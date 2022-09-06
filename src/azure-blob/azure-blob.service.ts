@@ -16,9 +16,10 @@ export class AzureBlobService {
      
       async upload(file:Express.Multer.File,containerName:string){
         this.containerName = containerName
-        const blobClient = this.getBlobClient(uuid()+file.originalname);
+        const imgUrl = uuid()+file.originalname;
+        const blobClient = this.getBlobClient(imgUrl);
         await blobClient.uploadData(file.buffer);
-    
+        console.log(imgUrl);
       }
     //   read file from azureblob
       async getfile(fileName: string,containerName:string){
